@@ -36,6 +36,11 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+        #password-title {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
         #password {
             padding: 10px;
             border: 1px solid #ccc;
@@ -44,6 +49,7 @@
             width: 80%;
             box-sizing: border-box;
             font-size: 16px;
+            background-color: #fff;
         }
         #password:focus {
             outline: none;
@@ -109,7 +115,8 @@
 <body>
     <div id="password-overlay">
         <div id="password-container">
-            <h2>Enter Password</h2>
+            <h2 id="password-title">Retro Bowl</h2>
+            <h3>Enter Password</h3>
             <input type="password" id="password" placeholder="Password">
             <button id="submit-button" onclick="checkPassword()">Submit</button>
             <p id="error-message">Incorrect password. Please try again.</p>
