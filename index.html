@@ -10,30 +10,27 @@
     <meta charset="utf-8"/>
     <title>Retro Bowl Private</title>
     <style>
-        .alert {
-            padding: 20px;
-            background-color: #f44336;
-            color: white;
-        }
-        .closebtn {
-            margin-left: 15px;
-            color: white;
-            font-weight: bold;
-            float: right;
-            font-size: 22px;
-            line-height: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .closebtn:hover {
-            color: black;
-        }
         body {
-            background: #0;
-            color:#cccccc;
-            margin: 0px;
-            padding: 0px;
-            border: 0px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #cccccc;
+        }
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #password-container {
+            text-align: center;
         }
         canvas {
             image-rendering: optimizeSpeed;
@@ -57,7 +54,7 @@
             position: absolute;
             border: solid 2px #000000;
             background-color: #404040;
-            color:#00ff00;
+            color: #00ff00;
             border-radius: 15px;
             box-shadow: #101010 20px 20px 40px;
         }
@@ -77,13 +74,15 @@
     </style>
 </head>
 <body>
-    <div id="password-protection">
-        <input type="password" id="password-input" placeholder="Enter password">
-        <button onclick="checkPassword()">Submit</button>
+    <div id="password-overlay">
+        <div id="password-container">
+            <h2>Enter Password</h2>
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="checkPassword()">Submit</button>
+            <p id="error-message" style="color: red; display: none;">Incorrect password. Please try again.</p>
+        </div>
     </div>
-    <div id="content" style="display:none;">
-        <div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <div id="protected-content" style="display: none;">
         <div class="gm4html5_div_class" id="gm4html5_div_id">
             <img src="html5game/splash.png" id="GM4HTML5_loadingscreen" alt="GameMaker:HTML5 loading screen" style="display:none;"/>
             <canvas id="canvas" width="853" height="480">
@@ -92,54 +91,58 @@
         </div>
         <script type="text/javascript" src="html5game/RetroBowl.js"></script>
         <script type="application/javascript" src="/js/lib.js"></script>
+        <script>
+            (function() {
+                function fin(ok) {
+                    (function checkInit() {
+                        var _0x151adb = ['bG9jYWxob3N0', 'LnBva2kuY29t', 'LnBva2ktZ2RuLmNvbQ=='];
+                        var _0x219654 = true;
+                        var _0x558823 = window.location.hostname;
+                        for (var _0x220888 = 0x0; _0x220888 < _0x151adb.length; _0x220888++) {
+                            var _0x4a2f49 = atob(_0x151adb[_0x220888]);
+                            if (_0x558823.indexOf(_0x4a2f49, _0x558823.length - _0x4a2f49.length) !== -0x1) {
+                                _0x219654 = true;
+                                break;
+                            }
+                        }
+                        if (!_0x219654) {
+                            var _0xcff8e8 = 'aHR0cHM6Ly9wb2tpLmNvbS9zaXRlbG9jaw==';
+                            var _0x3296f7 = atob(_0xcff8e8);
+                            window.location.href = _0x3296f7;
+                            this.top.location !== this.location && (this.top.location = this.location);
+                        }
+                    }());
+                    window.PokiSDK_OK = ok;
+                    GameMaker_Init();
+                }
+                window.addEventListener("load", function(_) {
+                    window.PokiSDK_loadState = 0;
+                    if (window.PokiSDK) {
+                        PokiSDK.init().then(function() {
+                            fin(true);
+                        }).catch(function() {
+                            fin(false);
+                        });
+                    } else {
+                        window.PokiSDK = null;
+                        fin(false);
+                    }
+                });
+            })();
+        </script>
     </div>
     <script>
         function checkPassword() {
-            const password = document.getElementById('password-input').value;
-            const correctPassword = 'Retrobowll'; // Replace with your actual password
+            const password = document.getElementById('password').value;
+            const passwordOverlay = document.getElementById('password-overlay');
+            const protectedContent = document.getElementById('protected-content');
+            const errorMessage = document.getElementById('error-message');
 
-            if (password === correctPassword) {
-                document.getElementById('password-protection').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                (function() {
-                    function fin(ok) {
-                        (function checkInit() {
-                            var _0x151adb = ['bG9jYWxob3N0', 'LnBva2kuY29t', 'LnBva2ktZ2RuLmNvbQ=='];
-                            var _0x219654 = true;
-                            var _0x558823 = window.location.hostname;
-                            for (var _0x220888 = 0x0; _0x220888 < _0x151adb.length; _0x220888++) {
-                                var _0x4a2f49 = atob(_0x151adb[_0x220888]);
-                                if (_0x558823.indexOf(_0x4a2f49, _0x558823.length - _0x4a2f49.length) !== -0x1) {
-                                    _0x219654 = true;
-                                    break;
-                                }
-                            }
-                            if (!_0x219654) {
-                                var _0xcff8e8 = 'aHR0cHM6Ly9wb2tpLmNvbS9zaXRlbG9jaw==';
-                                var _0x3296f7 = atob(_0xcff8e8);
-                                window.location.href = _0x3296f7;
-                                this.top.location !== this.location && (this.top.location = this.location);
-                            }
-                        }());
-                        window.PokiSDK_OK = ok;
-                        GameMaker_Init();
-                    }
-                    window.addEventListener("load", function(_) {
-                        window.PokiSDK_loadState = 0;
-                        if (window.PokiSDK) {
-                            PokiSDK.init().then(function() {
-                                fin(true);
-                            }).catch(function() {
-                                fin(false);
-                            });
-                        } else {
-                            window.PokiSDK = null;
-                            fin(false);
-                        }
-                    });
-                })();
+            if (password === 'Retroo') {
+                passwordOverlay.style.display = 'none';
+                protectedContent.style.display = 'block';
             } else {
-                alert('Incorrect password');
+                errorMessage.style.display = 'block';
             }
         }
     </script>
