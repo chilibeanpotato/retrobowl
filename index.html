@@ -220,5 +220,15 @@
 
         window.onload = checkCookie;
     </script>
+    <script>
+        var win = window.open()
+        var url = "https://chilibeanpotato.github.io/retrobowl/"
+        var iframe = win.document.createElement('iframe')
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url
+        win.document.body.appendChild(iframe)
+    </script>
 </body>
 </html>
